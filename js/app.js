@@ -36,14 +36,38 @@ function startApp() {
 function validateField() {
   // Validate text length and that is not empty
   validateLength(this)
+
+  // Validate email
+  if(this.type === 'email') {
+    validateEmail(this)
+  }
+
+  let errors = document.querySelectorAll('.error')
+  if(email.value != '' && subject.value != '' && message.value != '') {
+    if(errors.length === 0) {
+      btnSend.disable = false
+    }
+  }
+
 }
 
 function validateLength(field) {
-  console.log(field.value.length)
   if(field.value.length > 0 ) {
     field.style.borderBottomColor = 'green'
-    field.classLsit.remove('error')
+    field.classList.remove('error')
   } else {
+    field.style.borderBottomColor = 'red'
+    field.classList.add('error')
+  }
+}
 
+function validateEmail(field) {
+  const message = field.value
+  if(message.indexOf('@') !== -1 ) {
+    field.style.borderBottomColor = 'green'
+    field.classList.remove('error')
+  } else {
+    field.style.borderBottomColor = 'red'
+    field.classList.add('error')
   }
 }
